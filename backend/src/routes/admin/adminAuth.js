@@ -1,0 +1,10 @@
+import express  from "express";
+const adminRouter = express.Router();
+import { signUpAdmin ,signInAdmin} from "../../controller/admin/adminAuth.js";
+import { validateSignIn, validateSignUp  } from "../../validator/authValidator.js";
+import { isValid } from "../../validator/commonValidator.js";
+import { isAdmin, isSignedIn} from "../../common_middleware/middleware.js";
+adminRouter.post("/admin/verify" ,isSignedIn ,isAdmin, (req,res) => res.status(200).json({user:req.user}));
+adminRouter.post("/admin/signup" ,validateSignUp,isValid , signUpAdmin);
+adminRouter.post("/admin/signin" , validateSignIn , isValid , signInAdmin);
+export default adminRouter;
