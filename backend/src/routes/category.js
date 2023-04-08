@@ -7,6 +7,6 @@ import { upload } from "../common_middleware/middleware.js";
 const categoryRouter = Router();
 
 categoryRouter.post("/category/create" , isSignedIn , isAdmin ,upload.single("categoryImage") ,validateCategoryName , isValid , createCategory);
-categoryRouter.get("/category" ,isSignedIn, isUser, getCategory);
+categoryRouter.get("/category/getCategory" ,isSignedIn, isUser, getCategory);
 
 export default categoryRouter;

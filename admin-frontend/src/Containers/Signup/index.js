@@ -6,15 +6,13 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {authAction} from "../../redux/actions/authActions"
-import { useDispatch } from "react-redux"
-import { Navigate } from 'react-router-dom';
+import { useDispatch , useSelector } from "react-redux"
 import { useState } from 'react';
-import TokenVerify from '../../Hooks/tokenVerify';
+import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
     const [userInfo , setUserInfo] = useState({firstName:"" ,lastName:"",email:"" , password:""})
     const dispatch = useDispatch();
-    const auth = TokenVerify();
     const formSubmit = async(e) =>{
         e.preventDefault();
         dispatch(authAction(userInfo , "signup"));
@@ -24,9 +22,9 @@ const Signup = () => {
             return {...prev , [e.target.name] : e.target.value};
         })
     }
+    const auth = useSelector(state => state.authReducer);
   return (
-    auth ? <Navigate to ="/"/>:
-    <Layout>
+     auth.authenticated ? <Navigate to ="/"/> : 
         <Container fluid  className = "containerSignin">
         <Row className = "mt-5" >
             <Col md = {{span : 6 , offset : 3}}>
@@ -63,7 +61,7 @@ const Signup = () => {
             </Col>
         </Row>
       </Container>
-    </Layout>
+    
   )
 }
 

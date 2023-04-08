@@ -13,7 +13,8 @@ const authReducer = ( state =  initState, action) => {
     switch(action.type){
         case authConstants.LOGIN_REQUEST: return {...state, authenticating : true};
         case authConstants.LOGIN_DONE: return {...state, ...action.payload , authenticated: true , authenticating:false};
-        case authConstants.LOGIN_FAILED: return {...state, authenticating : false};
+        case authConstants.LOGIN_FAILED: return {...state, authenticated : false , authenticating : false};
+        case authConstants.LOGOUT: return {...initState , authenticating : false , authenticated:false};
         default : return state;                   
     }
 }

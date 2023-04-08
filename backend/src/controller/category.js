@@ -5,13 +5,13 @@ export const createCategory = async (req,res,next) => {
         name : req.body.name,
         slug : slugify(req.body.name),
         parentID : req.body.parentID,
-        categoryImage : req.file ? process.env.API + "/public" + "/" + req.file.filename : null
+        categoryImage : req.file ? process.env.API + "/public" + "/" + req.file.filename : ""
     }
     try{
         const newCategory = new Category(categoryInfo);
         await newCategory.save();
-        return res.status(201).json({message:`Category ${newCategory.name} is successfully added`});
-    }catch{() => {return res.status(400).json({message : "Something Went Wrong Please Try Again"})}};
+        return res.status(201).json({newCategory,message:`Category ${newCategory.name} is successfully added`});
+    }catch{return res.status(400).json({message : "Something Went Wrong Please Try Again"})};
 }
 
 const getAllCategoriesOrdered = (allCategories , parent) => {
