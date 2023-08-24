@@ -15,8 +15,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors())
-//mongodb+srv://adminTanish:<password>@cluster0.v510cyv.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}@cluster0.v510cyv.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,)
+
+mongoose.connect(`mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASSWORD}/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,)
 .then(() => console.log("CONNECTION SUCCESSFULL"))
 .catch((err) => console.log(err));
 app.use("/public",express.static(path.join(__dirname , "uploads")));
